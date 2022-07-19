@@ -1,4 +1,4 @@
-package com.comments.examplemodule;
+package comments.app.examplemodule;
 
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
@@ -12,15 +12,17 @@ import java.util.*;
 public class CommentController {
 
     @Autowired
-    public CommentService commentService;
+    private CommentService commentService;
 
 
     //todo: add response object, error response object, ExceptionControllerHandler
     @PostMapping
     public void insertComment(@RequestBody CommentRequest commentRequest){
 
+
         log.info(commentRequest.getMessage());
         this.commentService.insertComment(commentRequest);
+        this.commentService.publishInsert(commentRequest);
         log.info("insert message, {}", commentRequest);
     }
 

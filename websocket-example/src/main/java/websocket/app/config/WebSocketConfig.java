@@ -13,7 +13,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
 
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new CommentWebSocketHandler(), "/comments");
+        registry.addHandler(new CommentWebSocketHandler(), "/notcomments");
     }
 
     @Bean

@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 8088
 
 spring:
   application:
-    name: exampleModule
+    name: example-module
   data:
     mongodb:
       authentication-database: admin
@@ -12,4 +12,13 @@ spring:
       database: databasename
       port: 27017
       auto-index-creation: true
-
+#  rabbitmq:
+#    addresses: rabbitmq:5672
+rabbitmq:
+  port: 5672
+  exchanges:
+    internal: internal.exchange
+  queues:
+    notification: notification.queue
+  routing-keys:
+    internal-notification: internal.notification.routing-key

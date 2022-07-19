@@ -1,4 +1,4 @@
-package com.comments.examplemodule;
+package comments.app.examplemodule;
 
 import lombok.extern.slf4j.*;
 import org.springframework.http.*;
