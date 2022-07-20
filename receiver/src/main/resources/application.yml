@@ -8,8 +8,8 @@ server:
 rabbitmq:
   port: 5672
   exchanges:
-    internal: internal.exchange
+    receiver: receiver.topic
   queues:
-    notification: notification.queue
+    receiver: receiver.queue
   routing-keys:
-    internal-notification: internal.notification.routing-key
+    receiver: receiver.routing-key

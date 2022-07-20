@@ -13,6 +13,7 @@
         <module>sse-app</module>
         <module>components</module>
         <module>receiver</module>
+        <module>mongodbapp</module>
     </modules>
 
     <name>comments-app</name>

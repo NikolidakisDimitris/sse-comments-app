@@ -11,13 +11,13 @@ import org.springframework.context.annotation.*;
 @Configuration
 public class CommentConfig {
 
-    @Value("${rabbitmq.receiver.incoming}")
+    @Value("${rabbitmq.exchanges.receiver}")
     private String internalExchange;
 
     @Value("${rabbitmq.queues.receiver}")
     private String notificationQueue;
 
-    @Value("${rabbitmq.routing-keys.receiver-incoming}")
+    @Value("${rabbitmq.routing-keys.receiver}")
     private String internalNotificationRoutingKey;
 
 

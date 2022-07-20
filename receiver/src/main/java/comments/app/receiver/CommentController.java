@@ -1,5 +1,6 @@
 package comments.app.receiver;
 
+import comments.app.components.comment.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,10 @@ public class CommentController {
 
 
         log.info(commentRequest.getMessage());
-        this.commentPublisher.publishInsert(commentRequest);
+        Comment comment = Comment.builder()
+                .message(commentRequest.getMessage())
+                .timestamp(System.currentTimeMillis() / 1000L).build();
+        this.commentPublisher.publishInsert(comment);
         log.info("insert message, {}", commentRequest);
     }
 }

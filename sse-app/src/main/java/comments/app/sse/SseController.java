@@ -1,6 +1,8 @@
 package comments.app.sse;
 
 //import comments.app.examplemodule.Comment;
+
+import comments.app.components.comment.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.amqp.rabbit.annotation.*;
@@ -40,14 +42,18 @@ public class SseController {
 //        UUID guid = UUID.randomUUID();
 //        sseEmitters.put(guid.toString(), sseEmitter);
 //        sseEmitter.send(SseEmitter.event().name("GUI_ID").data(guid));
+        sseEmitter.onError(se -> {
+            log.info("SSE ERRPOR");
+            sseEmitterList.remove(sseEmitter);
+        });
 //        sseEmitter.onCompletion(() -> sseEmitters.remove(guid.toString()));
 //        sseEmitter.onTimeout(() -> sseEmitters.remove(guid.toString()));
         return sseEmitter;
     }
 
     //    @RabbitListener(queues = "${rabbitmq.queues.notification}")
-    @RabbitListener(queues = "${rabbitmq.queues.notification}")
-    public void consumer(Object message) {
+    @RabbitListener(queues = "${rabbitmq.queues.mongodb}")
+    public void consumer(Comment message) {
 
 
 //        log.info(message.getPayload().toString());
@@ -56,7 +62,9 @@ public class SseController {
         for (SseEmitter sseEmitter : this.sseEmitterList) {
             log.info("emmiter about to send.");
             try {
-                sseEmitter.send(message.toString());
+//                SseEmitter.SseEventBuilder event = SseEmitter.event().data(message);
+
+                sseEmitter.send(SseEmitter.event().data(message));
             } catch (IOException e) {
                 log.error("exception while sending message");
             }
