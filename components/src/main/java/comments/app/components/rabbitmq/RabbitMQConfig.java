@@ -1,5 +1,6 @@
-package comments.app.rabbitmq;
+package comments.app.components.rabbitmq;
 
+import com.fasterxml.jackson.databind.*;
 import lombok.*;
 import org.springframework.amqp.rabbit.config.*;
 import org.springframework.amqp.rabbit.connection.*;
@@ -7,7 +8,6 @@ import org.springframework.amqp.support.converter.*;
 import org.springframework.context.annotation.*;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.http.converter.json.*;
 
 @Configuration
 @AllArgsConstructor
@@ -35,7 +35,7 @@ public class RabbitMQConfig {
 
     @Bean
     public MessageConverter jacksonJsonConverter() {
-
-        return new Jackson2JsonMessageConverter();
+        ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+        return new Jackson2JsonMessageConverter(mapper);
     }
 }

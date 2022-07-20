@@ -1,8 +1,11 @@
 package comments.app.sse;
 
+//import comments.app.examplemodule.Comment;
+import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.context.annotation.*;
+import org.springframework.messaging.support.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.*;
 
@@ -42,12 +45,14 @@ public class SseController {
         return sseEmitter;
     }
 
-//    @RabbitListener(queues = "${rabbitmq.queues.notification}")
+    //    @RabbitListener(queues = "${rabbitmq.queues.notification}")
     @RabbitListener(queues = "${rabbitmq.queues.notification}")
     public void consumer(Object message) {
 
+
+//        log.info(message.getPayload().toString());
         log.info("Consumed : {} from Queue : {}",
-                message, "comment");
+                message, "notification");
         for (SseEmitter sseEmitter : this.sseEmitterList) {
             log.info("emmiter about to send.");
             try {

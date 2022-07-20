@@ -9,10 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>example-module</module>
         <module>websocket-example</module>
-        <module>rabbitmq</module>
         <module>sse-app</module>
+        <module>components</module>
+        <module>receiver</module>
     </modules>
 
     <name>comments-app</name>

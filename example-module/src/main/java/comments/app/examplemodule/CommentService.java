@@ -1,6 +1,6 @@
 package comments.app.examplemodule;
 
-import comments.app.rabbitmq.*;
+import comments.app.components.rabbitmq.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
@@ -13,16 +13,16 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     @Autowired
-    private RabbitMQMessageProducer rabbitMQMessageProducer;
+    private RabbitMQPublisher rabbitMQPublisher;
 
-
-    public void publishInsert(CommentRequest commentRequest){
-        this.rabbitMQMessageProducer.publish(commentRequest, "internal.exchange", "internal.notification.routing-key");
-    }
-
-    public void insertComment(CommentRequest commentRequest){
-        this.commentRepository.insert(new Comment(commentRequest));
-    }
+//
+//    public void publishInsert(CommentRequest commentRequest){
+//        this.rabbitMQPublisher.publish(commentRequest, "internal.exchange", "internal.notification.routing-key");
+//    }
+//
+//    public void insertComment(CommentRequest commentRequest){
+//        this.commentRepository.insert(new Comment(commentRequest));
+//    }
 
     public List<Comment> getAllComments(){
 

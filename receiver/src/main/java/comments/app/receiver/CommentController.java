@@ -1,10 +1,8 @@
-package comments.app.examplemodule;
+package comments.app.receiver;
 
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
 
 @Slf4j
 @RestController
@@ -12,7 +10,7 @@ import java.util.*;
 public class CommentController {
 
     @Autowired
-    private CommentService commentService;
+    private CommentPublisher commentPublisher;
 
 
     //todo: add response object, error response object, ExceptionControllerHandler
@@ -21,14 +19,7 @@ public class CommentController {
 
 
         log.info(commentRequest.getMessage());
-        this.commentService.insertComment(commentRequest);
-        this.commentService.publishInsert(commentRequest);
+        this.commentPublisher.publishInsert(commentRequest);
         log.info("insert message, {}", commentRequest);
-    }
-
-    @GetMapping
-    public List<Comment> getAllComments(){
-
-        return  commentService.getAllComments();
     }
 }
