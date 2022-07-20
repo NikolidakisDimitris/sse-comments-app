@@ -22,7 +22,7 @@ public class CommentController {
         log.info(commentRequest.getMessage());
         Comment comment = Comment.builder()
                 .message(commentRequest.getMessage())
-                .timestamp(System.currentTimeMillis() / 1000L).build();
+                .timestamp(System.currentTimeMillis() / 100L).build();
         this.commentPublisher.publishInsert(comment);
         log.info("insert message, {}", commentRequest);
     }
