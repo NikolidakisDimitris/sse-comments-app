@@ -10,13 +10,13 @@ spring:
       port: 27017
       auto-index-creation: true
 
-rabbitmq:
-  port: 5672
-  exchanges:
-    mongodb: mongodb.fan
-    receiver: receiver.topic
-  queues:
-    receiver: receiver.queue
-    mongodb: mongodb.queue
-  routing-keys:
-    receiver: receiver.routing-key
+#rabbitmq:
+#  port: 5672
+#  exchanges:
+#    mongodb: mongodb.fan
+#    receiver: receiver.topic
+#  queues:
+#    receiver: receiver.queue
+#    mongodb: mongodb.queue
+#  routing-keys:
+#    receiver: receiver.routing-key

@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.*;
                 "comments.app.sse",
                 "comments.app.components.rabbitmq"
         })
-//@SpringBootApplication
 public class SseApp {
 
     public static void main(String[] args) {

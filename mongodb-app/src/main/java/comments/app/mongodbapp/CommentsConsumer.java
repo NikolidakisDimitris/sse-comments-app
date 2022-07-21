@@ -19,12 +19,14 @@ public class CommentsConsumer {
     @Autowired
     private RabbitMQPublisher rabbitMQPublisher;
 
-    @Value("${rabbitmq.exchanges.mongodb}")
+    @Value("${rabbitmq.exchanges.view}")
     private String mongodbExchange;
 
 
     @RabbitListener(queues = "${rabbitmq.queues.receiver}")
     public void consumer(Comment comment) {
+
+        log.info("ASDASDASDAS" + mongodbExchange);
 
 
         MongodbComment mongodbComment = new MongodbComment(comment);

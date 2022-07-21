@@ -3,35 +3,19 @@ package comments.app.sse;
 //import comments.app.examplemodule.Comment;
 
 import comments.app.components.comment.*;
-import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.amqp.rabbit.annotation.*;
-import org.springframework.context.annotation.*;
-import org.springframework.messaging.support.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.*;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.*;
 
 @Slf4j
 @RestController
 public class SseController {
 
-//    private final Map<String, SseEmitter> sses  = new ConcurrentHashMap();
-
-//    @GetMapping("/comments/getnew")
-//    public SseEmitter example() {
-//
-//        SseEmitter sseEmitter = new SseEmitter();
-////        sses.put()
-//
-//        return sseEmitter;
-//    }
-
-//    private Map<String, SseEmitter> sseEmitters = new ConcurrentHashMap<>();
-
+    //we can add emitters in a map to find only a specific one
     private final List<SseEmitter> sseEmitterList = Collections.synchronizedList(new ArrayList<>());
 
     @GetMapping("/comments/getnew")
@@ -39,9 +23,6 @@ public class SseController {
 
         SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
         sseEmitterList.add(sseEmitter);
-//        UUID guid = UUID.randomUUID();
-//        sseEmitters.put(guid.toString(), sseEmitter);
-//        sseEmitter.send(SseEmitter.event().name("GUI_ID").data(guid));
         sseEmitter.onError(se -> {
             log.info("SSE ERRPOR");
             sseEmitterList.remove(sseEmitter);
@@ -51,14 +32,12 @@ public class SseController {
         return sseEmitter;
     }
 
-    //    @RabbitListener(queues = "${rabbitmq.queues.notification}")
-    @RabbitListener(queues = "${rabbitmq.queues.mongodb}")
+
+    @RabbitListener(queues = "${rabbitmq.queues.view}")
     public void consumer(Comment message) {
 
-
-//        log.info(message.getPayload().toString());
         log.info("Consumed : {} from Queue : {}",
-                message, "notification");
+                message, "view");
         for (SseEmitter sseEmitter : this.sseEmitterList) {
             log.info("emmiter about to send.");
             try {

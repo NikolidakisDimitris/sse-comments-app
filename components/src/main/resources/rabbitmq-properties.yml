@@ -1,0 +1,10 @@
+rabbitmq:
+  port: 5672
+  exchanges:
+    view: view.fan
+    receiver: receiver.topic
+  queues:
+    receiver: receiver.queue
+    view: view.queue
+  routing-keys:
+    receiver: receiver.routing-key

@@ -5,11 +5,11 @@ server:
 #  application:
 #    name: receiver
 
-rabbitmq:
-  port: 5672
-  exchanges:
-    receiver: receiver.topic
-  queues:
-    receiver: receiver.queue
-  routing-keys:
-    receiver: receiver.routing-key
+#rabbitmq:
+#  port: 5672
+#  exchanges:
+#    receiver: receiver.topic
+#  queues:
+#    receiver: receiver.queue
+#  routing-keys:
+#    receiver: receiver.routing-key
