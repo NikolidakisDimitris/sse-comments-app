@@ -10,10 +10,12 @@ public class Comment {
 
     private String message;
     private Long timestamp;
+    private String name;
 
-    public Comment(String message, Long timestamp){
+    public Comment(String message, Long timestamp, String name){
         this.message = message;
         this.timestamp = timestamp;
+        this.name = name;
     }
 
     public Comment(String message){

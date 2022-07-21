@@ -9,4 +9,6 @@ public class CommentRequest {
 
     @NotEmpty
     private String message;
+    @NotEmpty
+    private String name;
 }

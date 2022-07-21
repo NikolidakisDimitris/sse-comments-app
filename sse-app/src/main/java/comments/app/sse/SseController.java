@@ -25,6 +25,7 @@ public class SseController {
         sseEmitterList.add(sseEmitter);
         sseEmitter.onError(se -> {
             log.info("SSE ERRPOR");
+            //todo fix
             sseEmitterList.remove(sseEmitter);
         });
 //        sseEmitter.onCompletion(() -> sseEmitters.remove(guid.toString()));

@@ -15,7 +15,7 @@ public class MongodbComment extends Comment {
     private String id;
 
     public MongodbComment(Comment comment){
-        super(comment.getMessage(), comment.getTimestamp());
+        super(comment.getMessage(), comment.getTimestamp(), comment.getName());
     }
 }
 
