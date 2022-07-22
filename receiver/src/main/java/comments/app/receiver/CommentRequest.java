@@ -9,6 +9,7 @@ public class CommentRequest {
 
     @NotEmpty
     private String message;
-    @NotEmpty
-    private String name;
+
+    //instantiate in case of unnamed user
+    private String name = "Guest";
 }

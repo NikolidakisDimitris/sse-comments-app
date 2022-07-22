@@ -17,7 +17,7 @@ public class CommentsController {
     @Autowired
     CommentRepository commentRepository;
 
-    @GetMapping(value = "/comments/getAll")
+    @GetMapping(value = "/view-api/v1/comments/getAll")
     public List<Comment> getAllComments(@PageableDefault(page = 0, size = 10, sort = {"timestamp"}, direction = Sort.Direction.DESC) Pageable pageable) {
 
         Pageable paging = PageRequest.of(

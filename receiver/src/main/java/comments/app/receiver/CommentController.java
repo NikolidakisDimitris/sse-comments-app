@@ -5,12 +5,13 @@ import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.*;
 import java.time.*;
 import java.time.format.*;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/comments")
+@RequestMapping("write-api/v1/comments")
 public class CommentController {
 
     @Autowired
@@ -19,8 +20,8 @@ public class CommentController {
 
     //todo: add response object, error response object, ExceptionControllerHandler
     @CrossOrigin(origins = "http://localhost:8080")
-    @PostMapping("/add")
-    public void insertComment(@RequestBody CommentRequest commentRequest){
+    @PostMapping
+    public void insertComment(@Valid @RequestBody CommentRequest commentRequest) {
 
 
         log.info(commentRequest.getMessage());
