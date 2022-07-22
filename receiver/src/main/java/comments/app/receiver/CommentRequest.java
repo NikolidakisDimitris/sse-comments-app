@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 @Data
 public class CommentRequest {
 
-    @NotEmpty
+    @NotBlank
     private String message;
 
     //instantiate in case of unnamed user
