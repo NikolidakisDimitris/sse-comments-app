@@ -18,7 +18,7 @@ public class SseController {
     //we can add emitters in a map to find only a specific one
     private final List<SseEmitter> sseEmitterList = Collections.synchronizedList(new ArrayList<>());
 
-    @GetMapping("/view-api/v1/comments/sse")
+    @GetMapping("view-api/v1/comments/sse")
     public SseEmitter eventEmitter() throws IOException {
 
         SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);

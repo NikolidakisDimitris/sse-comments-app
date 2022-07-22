@@ -31,6 +31,7 @@ public class CommentsConsumer {
         log.info("Consumed : {} from Queue : {}",
                 comment, QUEUE);
 
+
         this.commentRepository.insert(mongodbComment);
         this.rabbitMQPublisher.publishFan(comment, mongodbExchange);
     }

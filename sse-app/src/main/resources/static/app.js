@@ -1,54 +1,62 @@
 $(() => {
 
+    //base element to append comments
     const commentsList = document.getElementById('comments');
+    //input elements
+    const commentMessage = document.getElementById('comment-message');
+    const userName = document.getElementById('user-name');
+    //pageNumber used for pagination
     let pageNumber = 0;
 
+    //get first 10 comments to load
     ajaxGetCommentsPage();
 
-    const evtSource = new EventSource("/view-api/v1/comments/sse");
+    const evtSource = new EventSource('view-api/v1/comments/sse');
 
     evtSource.onmessage = function (e) {
 
-        const comment = JSON.parse(e.data)
-        prependComment(comment);
+        const comment = JSON.parse(e.data);
+        // prependComment(comment);
+        let header = createCommentHeader(comment);
+        let message = createCommentMessage(comment);
+        prependToComments(header, message);
+
+
     }
 
-    //must APPEND when getAllComments.
-
-    $("#post-comment").click(function (ev) {
+    $('#post-comment').click(function (ev) {
         ev.preventDefault();
 
-        var comment = {};
-        comment.message = document.getElementById('comment-message').value;
-        comment.name = document.getElementById('user-name').value;
+        var comment = {
+            message: commentMessage.value,
+            name: userName.value
+        };
 
         //insert comment
-        var url = "http://localhost:8088/write-api/v1/comments/";
+        var url = 'http://localhost:8088/write-api/v1/comments/';
         $.ajax({
-            method: "POST",
+            method: 'POST',
             url: url,
-            contentType: "application/json; charset=utf-8",
+            contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(comment),
             success: function (data) {
-                // Ajax call completed successfully
-                document.getElementById("comment-message").value = "";
+                commentMessage.value = '';
             },
             error: function (data) {
-                // Some error in ajax call
-                alert("some Error: " + data);
+                console.log('Error during ajax call: ' + data);
             },
         });
     });
 
+
     function ajaxGetCommentsPage() {
+        var url = 'http://localhost:8080/view-api/v1/comments/getAll';
 
-        var url = "http://localhost:8080//view-api/v1/comments/getAll";
-
-        pageParam = "?page=" + pageNumber;
+        pageParam = '?page=' + pageNumber;
         url += pageParam;
 
         $.ajax({
-            method: "GET",
+            method: 'GET',
             url: url,
             //data is comments in this case
             success: function (data) {
@@ -56,92 +64,84 @@ $(() => {
                 console.log(data);
                 if (data !== undefined && data.length > 0) {
 
-                    scrollElementToMid(commentsList)
+                    setScrollBarPosition(commentsList)
                     for (var i = 0; i < data.length; i++) {
                         commentItem = data[i];
                         console.log(commentItem);
-                        appendComment(commentItem);
+                        let header = createCommentHeader(commentItem);
+                        let message = createCommentMessage(commentItem);
+                        appendToComments(header, message)
                     }
                     pageNumber += 1;
                 } else {
-                    console.log("No more comments.")
+                    console.log('No more comments.');
                 }
             },
             error: function (data) {
-                console.log("Error calling getAll comments")
+                console.log('Error calling getAll comments');
             }
 
 
         })
     }
 
-    function scrollElementToMid(element) {
-
+    //move the scroll bar after inserting new comments. 
+    function setScrollBarPosition(element) {
         element.scrollTop = ((element.scrollHeight - element.clientHeight) / 2) * 1.6;
-
     }
 
-
-    $("#comments").scroll(function (event) {
-
-        const obj = document.getElementById("comments")
-        if (obj.scrollHeight - obj.scrollTop === obj.clientHeight) {
+    //listen for scrolling in the comments div
+    $('#comments').scroll(function (event) {
+        if (commentsList.scrollHeight - commentsList.scrollTop === commentsList.clientHeight) {
             ajaxGetCommentsPage()
-            console.log("scrolled down")
+            console.log('scrolled down');
         }
-
     });
 
-    function addClassToEl() {
-        element = arguments[0];
-        for (var i = 1; i < arguments.length; i++) {
-            element.classList.add(arguments[i])
+    function addClassToElement(element, cssClasses) {
+        for (let cssClass of cssClasses) {
+            element.classList.add(cssClass);
         }
     }
 
+    //create the header(name, date) for the comment element
+    function createCommentHeader(comment) {
 
-    function prependComment(comment) {
+        const header = document.createElement('div');
+        const emptyDiv = document.createElement('div');
+        addClassToElement(header, ['d-flex', 'flex-start', 'align-items-center'])
+        const date = document.createElement('p');
+        addClassToElement(date, ['text-muted', 'small', 'mb-0']);
+        const username = document.createElement('h6');
+        addClassToElement(username, ['fw-bold', 'text-primary', 'mb-1']);
 
-        const header = document.createElement("div");
-        const emptyDiv = document.createElement("div");
-        addClassToEl(header, "d-flex", "flex-start", "align-items-center")
-        const date = document.createElement("p");
-        addClassToEl(date, "text-muted", "small", "mb-0");
-        const username = document.createElement("h6");
-        addClassToEl(username, "fw-bold", "text-primary", "mb-1");
-        const message = document.createElement("p");
-        addClassToEl(message, "mt-3", "mb-4", "pb-2", "border-bottom")
 
-        date.textContent = "commented on: " + comment.date;
+        date.textContent = 'commented on: ' + comment.date;
         username.textContent = comment.name;
-        message.textContent = comment.message;
+
         emptyDiv.append(username)
         emptyDiv.append(date)
         header.append(emptyDiv)
-        commentsList.prepend(message);
-        commentsList.prepend(header)
+
+        return header;
     }
 
-    function appendComment(comment) {
-
-        const header = document.createElement("div");
-        const emptyDiv = document.createElement("div");
-        addClassToEl(header, "d-flex", "flex-start", "align-items-center")
-        const date = document.createElement("p");
-        addClassToEl(date, "text-muted", "small", "mb-0");
-        const username = document.createElement("h6");
-        addClassToEl(username, "fw-bold", "text-primary", "mb-1");
-        const message = document.createElement("p");
-        addClassToEl(message, "mt-3", "mb-4", "pb-2", "border-bottom")
-
-        date.textContent = "commented on: " + comment.date;
-        username.textContent = comment.name;
+    //create the message for the comment element
+    function createCommentMessage(comment) {
+        const message = document.createElement('p');
+        addClassToElement(message, ['mt-3', 'mb-4', 'pb-2', 'border-bottom'])
         message.textContent = comment.message;
-        emptyDiv.append(username)
-        emptyDiv.append(date)
-        header.append(emptyDiv)
+        return message;
+    }
+
+    function appendToComments(header, message) {
         commentsList.append(header);
-        commentsList.append(message)
+        commentsList.append(message);
+    }
+
+    function prependToComments(header, message) {
+        commentsList.prepend(message);
+        commentsList.prepend(header);
     }
 
 });
