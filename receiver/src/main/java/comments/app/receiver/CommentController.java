@@ -24,10 +24,11 @@ public class CommentController {
     public void insertComment(@Valid @RequestBody CommentRequest commentRequest) {
 
 
+        String name = commentRequest.getName().isBlank() ? "Guest" : commentRequest.getName();
         log.info(commentRequest.getMessage());
         Comment comment = Comment.builder()
                 .message(commentRequest.getMessage())
-                .name(commentRequest.getName())
+                .name(name)
                 .timestamp(System.currentTimeMillis() / 100L)
                 .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))).build();
         this.commentPublisher.publishInsert(comment);
