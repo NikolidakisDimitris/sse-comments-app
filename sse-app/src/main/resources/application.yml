@@ -1,6 +1,16 @@
 server:
   port: 8080
 
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      username: rootuser
+      password: rootpass
+      database: databasename
+      port: 27017
+      auto-index-creation: true
+
 #rabbitmq:
 #  port: 5672
 ##  exchanges:

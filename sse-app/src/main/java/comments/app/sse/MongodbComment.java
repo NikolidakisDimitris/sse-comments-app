@@ -1,9 +1,9 @@
-package comments.app.mongodbapp;
+package comments.app.sse;
 
+import comments.app.components.comment.*;
 import lombok.*;
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.*;
-import comments.app.components.comment.Comment;
 
 @EqualsAndHashCode(callSuper = true)
 @Document

@@ -11,17 +11,34 @@
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="app.js"></script>
     <style>
-        .list-group {
+        /* .list-group {
             max-height: 300px;
             margin-bottom: 10px;
             overflow: scroll;
             -webkit-overflow-scrolling: touch;
-        }
+        } */
 
-        table,
+        /* table,
         th,
         td {
             border: 1px solid black;
+        } */
+
+        html {
+            overflow: hidden;
+            height: 100%;
+        }
+
+        body {
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .comments-box {
+            min-height: 400px;
+            overflow: scroll;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
         }
     </style>
 </head>
@@ -31,8 +48,8 @@
         <div class="container my-5 py-5">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-12 col-lg-10 col-xl-8">
-                    <div class="card">
-                        <div class="card-body overflow-auto border-bottom"  id="comments">
+                    <div id="card" class="card" style="height: 80vh;">
+                        <div class="card-body border-bottom comments-box" id="comments">
                             <div class="d-flex flex-start align-items-center">
                                 <div>
                                     <h6 class="fw-bold text-primary mb-1">Lily Coleman</h6>
@@ -61,17 +78,17 @@
 
 
                         </div>
-                        <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                        <div class="card-footer py-3 border-0" style="background-color: #f8f9fa; max-height: 60%">
                             <div class="d-flex flex-start w-100">
                                 <div class="form-outline w-100">
-                                    <textarea class="form-control" id="textAreaExample" rows="4"
+                                    <textarea id="comment-message" class="form-control" rows="4"
                                         style="background: #fff;"></textarea>
                                     <label class="form-label" for="textAreaExample">Message</label>
                                 </div>
                             </div>
                             <div class="float-end mt-2 pt-1">
-                                <button type="button" class="btn btn-primary btn-sm">Post comment</button>
-                                <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+                                <button id="post-comment" type="button" class="btn btn-primary btn-sm">Post
+                                    comment</button>
                             </div>
                         </div>
                     </div>

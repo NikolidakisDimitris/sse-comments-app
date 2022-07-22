@@ -28,8 +28,9 @@ public class SseController {
             //todo fix
             sseEmitterList.remove(sseEmitter);
         });
-//        sseEmitter.onCompletion(() -> sseEmitters.remove(guid.toString()));
-//        sseEmitter.onTimeout(() -> sseEmitters.remove(guid.toString()));
+        sseEmitter.onCompletion(() -> sseEmitterList.remove(sseEmitter));
+        sseEmitter.onTimeout(() -> sseEmitterList.remove(sseEmitter));
+
         return sseEmitter;
     }
 
@@ -37,15 +38,23 @@ public class SseController {
     @RabbitListener(queues = "${rabbitmq.queues.view}")
     public void consumer(Comment message) {
 
+        if (message.getName() == null || message.getName().isEmpty()){
+            message.setName("Guest");
+        }
+
         log.info("Consumed : {} from Queue : {}",
                 message, "view");
+
+        log.info("emmiter list size: " + this.sseEmitterList.size());
         for (SseEmitter sseEmitter : this.sseEmitterList) {
             log.info("emmiter about to send.");
             try {
 //                SseEmitter.SseEventBuilder event = SseEmitter.event().data(message);
 
                 sseEmitter.send(SseEmitter.event().data(message));
+                log.info("Sent message with: "  + sseEmitter.hashCode());
             } catch (IOException e) {
+                sseEmitter.completeWithError(e);
                 log.error("exception while sending message");
             }
         }

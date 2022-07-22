@@ -26,8 +26,6 @@ public class CommentsConsumer {
     @RabbitListener(queues = "${rabbitmq.queues.receiver}")
     public void consumer(Comment comment) {
 
-        log.info("ASDASDASDAS" + mongodbExchange);
-
 
         MongodbComment mongodbComment = new MongodbComment(comment);
         log.info("Consumed : {} from Queue : {}",
