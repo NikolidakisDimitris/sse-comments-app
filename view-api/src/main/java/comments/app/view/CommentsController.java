@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.*;
 import org.springframework.web.bind.annotation.*;
+import comments.app.commons.mongodb.*;
 
 import java.util.*;
 import java.util.stream.*;
@@ -22,9 +23,6 @@ public class CommentsController {
 
         Pageable paging = PageRequest.of(
                 0, 5, Sort.by("timestamp").descending());
-
-        log.info("page: " + pageable.getPageNumber());
-        log.info("size: " + pageable.getPageSize());
 
         Page<MongodbComment> page = commentRepository.findAll(pageable);
 

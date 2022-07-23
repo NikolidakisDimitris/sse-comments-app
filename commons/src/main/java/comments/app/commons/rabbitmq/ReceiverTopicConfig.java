@@ -5,13 +5,10 @@ import comments.app.commons.utils.yaml.*;
 import lombok.*;
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.*;
 import org.springframework.context.annotation.*;
-//import org.springframework.stereotype.*;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "yaml")
 @PropertySource(value = "classpath:rabbitmq-properties.yml", factory = YamlPropertySourceFactory.class)
 public class ReceiverTopicConfig {
 

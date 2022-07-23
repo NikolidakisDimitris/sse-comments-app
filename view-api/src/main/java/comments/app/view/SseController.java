@@ -1,10 +1,9 @@
 package comments.app.view;
 
-//import comments.app.examplemodule.Comment;
-
 import comments.app.commons.comment.*;
 import lombok.extern.slf4j.*;
 import org.springframework.amqp.rabbit.annotation.*;
+import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.*;
 
@@ -12,24 +11,19 @@ import java.io.*;
 import java.util.*;
 
 @Slf4j
-@RestController
+@Controller
 public class SseController {
 
     //we can add emitters in a map to find only a specific one
     private final List<SseEmitter> sseEmitterList = Collections.synchronizedList(new ArrayList<>());
 
     @GetMapping("view-api/v1/comments/sse")
-    public SseEmitter eventEmitter() throws IOException {
+    public SseEmitter eventEmitter() {
 
         SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
         sseEmitterList.add(sseEmitter);
-        sseEmitter.onError(se -> {
-            log.info("SSE ERRPOR");
-            //todo fix
-            sseEmitterList.remove(sseEmitter);
-        });
-        sseEmitter.onCompletion(() -> sseEmitterList.remove(sseEmitter));
-        sseEmitter.onTimeout(() -> sseEmitterList.remove(sseEmitter));
+        log.info("added emitter: {}", sseEmitter);
+        log.info("added emitter (hash): {}", sseEmitter.hashCode());
 
         return sseEmitter;
     }
@@ -44,19 +38,18 @@ public class SseController {
 
         log.info("Consumed : {} from Queue : {}",
                 message, "view");
-
-        log.info("emmiter list size: " + this.sseEmitterList.size());
+        List<SseEmitter> brokenEmitters = new ArrayList<>();
         for (SseEmitter sseEmitter : this.sseEmitterList) {
-            log.info("emmiter about to send.");
             try {
-//                SseEmitter.SseEventBuilder event = SseEmitter.event().data(message);
-
                 sseEmitter.send(SseEmitter.event().data(message));
-                log.info("Sent message with: "  + sseEmitter.hashCode());
+                //catch broken pipe
             } catch (IOException e) {
-                sseEmitter.completeWithError(e);
-                log.error("exception while sending message");
+                log.error("exception in emitter: {}, adding to discard", sseEmitter.hashCode());
+                brokenEmitters.add(sseEmitter);
+                log.error("exception while sending message", e);
+
             }
         }
+        this.sseEmitterList.removeAll(brokenEmitters);
     }
 }

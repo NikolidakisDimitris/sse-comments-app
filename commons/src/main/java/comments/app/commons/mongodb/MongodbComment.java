@@ -1,4 +1,4 @@
-package comments.app.mongodbapp;
+package comments.app.commons.mongodb;
 
 import lombok.*;
 import org.springframework.data.annotation.*;

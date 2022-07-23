@@ -8,6 +8,17 @@ $(() => {
     //pageNumber used for pagination
     let pageNumber = 0;
 
+    let previousPageNumber = -1;
+
+    // //comments data objects
+    var commentsArray = [];
+    var noInitialComments = false;
+    // var firstPage = false;
+
+    // after 10 comments from the emitter we need to turn the page (avoid loading an extra comment.)
+    var commentsFromEmitterCounter = 0;
+
+
     //get first 10 comments to load
     ajaxGetCommentsPage();
 
@@ -20,8 +31,12 @@ $(() => {
         let header = createCommentHeader(comment);
         let message = createCommentMessage(comment);
         prependToComments(header, message);
-
-
+        //after 10 comments from the emitter turn the page
+        if (commentsFromEmitterCounter >= 10) {
+            pageNumber += 1;
+            commentsFromEmitterCounter = 0;
+        }
+        commentsFromEmitterCounter += 1;
     }
 
     $('#post-comment').click(function (ev) {
@@ -60,12 +75,31 @@ $(() => {
             url: url,
             //data is comments in this case
             success: function (data) {
+                // //add to comments array
+                // console.log(typeof(data))
+                // console.log(data);
+                commentsArray = commentsArray.concat(data);
+                console.log(commentsArray);
+                if (commentsArray.length === 0) {
+                    noInitialComments = true;
+                }
+                // if (commentsArray.length < 10 && pageNumber === 0){
+                //     firstPage = true;
+                // }
 
-                if (data !== undefined && data.length > 0) {
+                // if (data.length === 1){
+
+                // }
+
+
+
+                //add comment to html
+                if (data !== undefined && data.length > 0 && !noInitialComments) {
 
                     setScrollBarPosition(commentsList)
                     for (var i = 0; i < data.length; i++) {
                         commentItem = data[i];
+
                         let header = createCommentHeader(commentItem);
                         let message = createCommentMessage(commentItem);
                         appendToComments(header, message)
@@ -90,7 +124,8 @@ $(() => {
 
     //listen for scrolling in the comments div
     $('#comments').scroll(function (event) {
-        if (commentsList.scrollHeight - commentsList.scrollTop === commentsList.clientHeight) {
+        if (commentsList.scrollHeight - commentsList.scrollTop === commentsList.clientHeight && (pageNumber > previousPageNumber)) {
+            previousPageNumber = pageNumber;
             ajaxGetCommentsPage()
         }
     });
