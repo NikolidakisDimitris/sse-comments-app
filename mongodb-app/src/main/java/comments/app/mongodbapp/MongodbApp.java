@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.*;
 @SpringBootApplication(
         scanBasePackages = {
                 "comments.app.mongodbapp",
-                "comments.app.components"
+                "comments.app.commons"
         }
 )
 public class MongodbApp {

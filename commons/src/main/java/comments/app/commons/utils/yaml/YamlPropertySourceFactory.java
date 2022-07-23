@@ -1,4 +1,4 @@
-package comments.app.components.utils.yaml;
+package comments.app.commons.utils.yaml;
 
 import org.springframework.beans.factory.config.*;
 import org.springframework.core.env.*;

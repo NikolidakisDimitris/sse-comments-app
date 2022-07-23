@@ -1,7 +1,7 @@
 package comments.app.mongodbapp;
 
-import comments.app.components.comment.*;
-import comments.app.components.rabbitmq.*;
+import comments.app.commons.comment.*;
+import comments.app.commons.rabbitmq.*;
 import lombok.extern.slf4j.*;
 import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.beans.factory.annotation.*;

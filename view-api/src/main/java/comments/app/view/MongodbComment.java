@@ -1,6 +1,6 @@
 package comments.app.view;
 
-import comments.app.components.comment.*;
+import comments.app.commons.comment.*;
 import lombok.*;
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.*;

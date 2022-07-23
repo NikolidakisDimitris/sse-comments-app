@@ -1,4 +1,4 @@
-package comments.app.components.rabbitmq;
+package comments.app.commons.rabbitmq;
 
 import com.fasterxml.jackson.databind.*;
 import lombok.*;

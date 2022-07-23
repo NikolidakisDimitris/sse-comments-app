@@ -9,11 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>websocket-example</module>
-        <module>sse-app</module>
-        <module>components</module>
-        <module>receiver</module>
+        <module>view-api</module>
+        <module>write-api</module>
         <module>mongodb-app</module>
+        <module>commons</module>
     </modules>
 
     <name>comments-app</name>

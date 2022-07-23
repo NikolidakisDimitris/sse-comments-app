@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.*;
 
 @SpringBootApplication(
         scanBasePackages = {
-                "comments.app.sse",
-                "comments.app.components.rabbitmq"
+                "comments.app.view",
+                "comments.app.commons.rabbitmq"
         })
 public class SseApp {
 

@@ -2,7 +2,7 @@ package comments.app.view;
 
 //import comments.app.examplemodule.Comment;
 
-import comments.app.components.comment.*;
+import comments.app.commons.comment.*;
 import lombok.extern.slf4j.*;
 import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
 package comments.app.receiver;
 
-import comments.app.components.comment.*;
+import comments.app.commons.comment.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,7 @@ public class CommentController {
                 .message(commentRequest.getMessage())
                 .name(name)
                 .timestamp(System.currentTimeMillis() / 100L)
-                .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))).build();
+                .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).build();
         this.commentPublisher.publishInsert(comment);
         log.info("insert message, {}", commentRequest);
     }

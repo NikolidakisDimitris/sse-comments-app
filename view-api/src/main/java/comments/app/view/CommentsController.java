@@ -1,6 +1,6 @@
 package comments.app.view;
 
-import comments.app.components.comment.*;
+import comments.app.commons.comment.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.domain.*;

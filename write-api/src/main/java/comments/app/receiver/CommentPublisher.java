@@ -1,7 +1,7 @@
 package comments.app.receiver;
 
-import comments.app.components.comment.*;
-import comments.app.components.rabbitmq.*;
+import comments.app.commons.comment.*;
+import comments.app.commons.rabbitmq.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.scheduling.annotation.*;
 import org.springframework.stereotype.*;

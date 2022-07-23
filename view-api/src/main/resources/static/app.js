@@ -61,13 +61,11 @@ $(() => {
             //data is comments in this case
             success: function (data) {
 
-                console.log(data);
                 if (data !== undefined && data.length > 0) {
 
                     setScrollBarPosition(commentsList)
                     for (var i = 0; i < data.length; i++) {
                         commentItem = data[i];
-                        console.log(commentItem);
                         let header = createCommentHeader(commentItem);
                         let message = createCommentMessage(commentItem);
                         appendToComments(header, message)
@@ -78,7 +76,7 @@ $(() => {
                 }
             },
             error: function (data) {
-                console.log('Error calling getAll comments');
+                console.log('Error calling getAll comments: ' + data);
             }
 
 
@@ -87,14 +85,13 @@ $(() => {
 
     //move the scroll bar after inserting new comments. 
     function setScrollBarPosition(element) {
-        element.scrollTop = ((element.scrollHeight - element.clientHeight) / 2) * 1.6;
+        element.scrollTop = ((element.scrollHeight - (element.clientHeight)) / 2) * 2;
     }
 
     //listen for scrolling in the comments div
     $('#comments').scroll(function (event) {
         if (commentsList.scrollHeight - commentsList.scrollTop === commentsList.clientHeight) {
             ajaxGetCommentsPage()
-            console.log('scrolled down');
         }
     });
 

@@ -1,6 +1,6 @@
-package comments.app.components.rabbitmq;
+package comments.app.commons.rabbitmq;
 
-import comments.app.components.comment.*;
+import comments.app.commons.comment.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.stereotype.*;

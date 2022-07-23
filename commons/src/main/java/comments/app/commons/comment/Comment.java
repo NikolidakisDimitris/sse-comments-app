@@ -1,4 +1,4 @@
-package comments.app.components.comment;
+package comments.app.commons.comment;
 
 import lombok.*;
 

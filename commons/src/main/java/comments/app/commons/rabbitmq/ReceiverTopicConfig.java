@@ -1,13 +1,13 @@
-package comments.app.components.rabbitmq;
+package comments.app.commons.rabbitmq;
 
 
-import comments.app.components.utils.yaml.*;
+import comments.app.commons.utils.yaml.*;
 import lombok.*;
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.*;
 import org.springframework.context.annotation.*;
-import org.springframework.stereotype.*;
+//import org.springframework.stereotype.*;
 
 @Data
 @Configuration
