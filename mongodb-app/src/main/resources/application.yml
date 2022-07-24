@@ -1,6 +1,6 @@
-##do we really need 9090?
-#server:
-#  9090
+#do we really need 9090?
+server:
+  9090
 spring:
   application:
     name: mongodbapp

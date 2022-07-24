@@ -50,12 +50,19 @@ $(() => {
         };
 
         //insert comment
-        var url = 'http://spring:8088/write-api/v1/comments/';
+        var url = 'http://localhost:8088/write-api/v1/comments/';
+        console.log("paranoia 2");
         $.ajax({
             method: 'POST',
             url: url,
             crossDomain: true,
-            dataType: 'jsonp',
+            dataType: "json",
+//            headers: {
+//                'Access-Control-Allow-Origin': '*',
+//                'Access-Control-Allow-Credentials': 'true',
+//                'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
+//                'Access-Control-Allow-Headers': 'Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control'
+//             },
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(comment),
             success: function (data) {
@@ -81,7 +88,7 @@ $(() => {
             success: function (data) {
 
                 //check if the first call had data
-                if (data.length>0 && !initialComments){
+                if (data.length > 0 && !initialComments) {
                     initialComments = true;
                 }
 

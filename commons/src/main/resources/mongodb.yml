@@ -1,6 +1,6 @@
 data:
   mongodb:
-    host: localhost
+    host: rabbitmq
     port: 27017
     username: rootuser
     password: rootpass

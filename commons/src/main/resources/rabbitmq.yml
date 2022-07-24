@@ -1,5 +1,4 @@
 rabbitmq:
-  port: 5672
   exchanges:
     view: view.fan
     receiver: receiver.topic
@@ -8,3 +7,8 @@ rabbitmq:
     view: view.queue
   routing-keys:
     receiver: receiver.routing-key
+
+spring:
+  rabbitmq:
+    host: rabbitmq
+    port: 5672

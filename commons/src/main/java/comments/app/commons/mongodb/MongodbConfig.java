@@ -3,10 +3,12 @@ package comments.app.commons.mongodb;
 import com.mongodb.*;
 import com.mongodb.client.*;
 import comments.app.commons.utils.yaml.*;
+import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.context.annotation.*;
 import org.springframework.data.mongodb.config.*;
 
+@Slf4j
 @Configuration
 @PropertySource(value = "classpath:mongodb.yml", factory = YamlPropertySourceFactory.class)
 @PropertySource(value = "classpath:mongodb-${spring.profiles.active}.yml", factory = YamlPropertySourceFactory.class, ignoreResourceNotFound = true)
@@ -32,6 +34,8 @@ public class MongodbConfig extends AbstractMongoClientConfiguration {
 
     @Override
     public MongoClient mongoClient() {
+
+        log.warn("THE HOST:" + host);
 
         String sb = "mongodb://" +
                 username +
