@@ -1,21 +1,5 @@
 server:
   port: 8080
-
-#spring:
-#  data:
-#    mongodb:
-#      authentication-database: admin
-#      username: rootuser
-#      password: rootpass
-#      database: databasename
-#      port: 27017
-#      auto-index-creation: true
-
-#rabbitmq:
-#  port: 5672
-##  exchanges:
-##    internal: internal.exchange
-#  queues:
-#    mongodb: mongodb.queue
-##  routing-keys:
-##    internal-notification: internal.notification.routing-key
+spring:
+  application:
+    name: view-api

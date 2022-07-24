@@ -1,22 +1,6 @@
+##do we really need 9090?
+#server:
+#  9090
 spring:
   application:
     name: mongodbapp
-#  data:
-#    mongodb:
-#      authentication-database: admin
-#      username: rootuser
-#      password: rootpass
-#      database: databasename
-#      port: 27017
-#      auto-index-creation: true
-
-#rabbitmq:
-#  port: 5672
-#  exchanges:
-#    mongodb: mongodb.fan
-#    receiver: receiver.topic
-#  queues:
-#    receiver: receiver.queue
-#    mongodb: mongodb.queue
-#  routing-keys:
-#    receiver: receiver.routing-key

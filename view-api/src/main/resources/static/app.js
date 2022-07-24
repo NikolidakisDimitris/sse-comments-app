@@ -10,12 +10,14 @@ $(() => {
 
     let previousPageNumber = -1;
 
-    // //comments data objects
-    var commentsArray = [];
-    var noInitialComments = false;
-    // var firstPage = false;
+    // // //comments data objects
+    // var commentsArray = [];
 
-    // after 10 comments from the emitter we need to turn the page (avoid loading an extra comment.)
+    //testing
+    // var noInitialComments = false;
+    var initialComments = false;
+
+    // after 10 comments from the emitter we need to turn the page (avoid loading duplicate comments)
     var commentsFromEmitterCounter = 0;
 
 
@@ -27,7 +29,7 @@ $(() => {
     evtSource.onmessage = function (e) {
 
         const comment = JSON.parse(e.data);
-        // prependComment(comment);
+        // prepend a comment
         let header = createCommentHeader(comment);
         let message = createCommentMessage(comment);
         prependToComments(header, message);
@@ -48,7 +50,7 @@ $(() => {
         };
 
         //insert comment
-        var url = 'http://localhost:8088/write-api/v1/comments/';
+        var url = 'http://LALALA:8088/write-api/v1/comments/';
         $.ajax({
             method: 'POST',
             url: url,
@@ -75,26 +77,23 @@ $(() => {
             url: url,
             //data is comments in this case
             success: function (data) {
-                // //add to comments array
-                // console.log(typeof(data))
-                // console.log(data);
-                commentsArray = commentsArray.concat(data);
-                console.log(commentsArray);
-                if (commentsArray.length === 0) {
-                    noInitialComments = true;
+
+                //check if the first call had data
+                if (data.length>0 && !initialComments){
+                    initialComments = true;
                 }
-                // if (commentsArray.length < 10 && pageNumber === 0){
-                //     firstPage = true;
+
+                // commentsArray = commentsArray.concat(data);
+                // console.log(commentsArray);
+                // if (commentsArray.length === 0) {
+                //     noInitialComments = true;
                 // }
 
-                // if (data.length === 1){
-
-                // }
 
 
 
                 //add comment to html
-                if (data !== undefined && data.length > 0 && !noInitialComments) {
+                if (data !== undefined && data.length > 0 && initialComments) {
 
                     setScrollBarPosition(commentsList)
                     for (var i = 0; i < data.length; i++) {

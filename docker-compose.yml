@@ -19,13 +19,74 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: rootuser
       ME_CONFIG_MONGODB_ADMINPASSWORD: rootpass
       ME_CONFIG_MONGODB_SERVER: mongodb
-#      - ME_CONFIG_MONGODB_URL=mongodb://root:example@mongo:27017/
   rabbitmq:
     image: rabbitmq:3.10.6-management-alpine
     container_name: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
+  comments-view-app:
+#    build:
+#      context: view-api
+#      args:
+#        JAR_FILE: /target/view-api-1.0-SNAPSHOT.jar
+#        PORT: 8080
+    image: view-api:1.0-SNAPSHOT
+    container_name: comments-view-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - mongodb
+      - rabbitmq
+    depends_on:
+      - mongodb
+      - rabbitmq
+
+
+  comments-write-app:
+    #    build:
+    #      context: view-api
+    #      args:
+    #        JAR_FILE: /target/view-api-1.0-SNAPSHOT.jar
+    #        PORT: 8080
+    image: write-api:1.0-SNAPSHOT
+    container_name: write-app
+    ports:
+      - "8088:8088"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - rabbitmq
+    depends_on:
+      - spring
+      - mongodb
+      - rabbitmq
+
+
+  mongodb-app:
+    #    build:
+    #      context: view-api
+    #      args:
+    #        JAR_FILE: /target/view-api-1.0-SNAPSHOT.jar
+    #        PORT: 8080
+    image: mongodb-app:1.0-SNAPSHOT
+    container_name: mongodb-app
+#    ports:
+#      - "9090:9090"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - mongodb
+      - rabbitmq
+    depends_on:
+      - mongodb
+      - rabbitmq
+
 volumes:
   data: {}
 
@@ -35,4 +96,6 @@ networks:
   mongodb:
     driver: bridge
   rabbitmq:
+    driver: bridge
+  spring:
     driver: bridge

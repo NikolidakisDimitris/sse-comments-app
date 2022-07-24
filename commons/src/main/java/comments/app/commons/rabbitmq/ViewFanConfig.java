@@ -1,6 +1,7 @@
 package comments.app.commons.rabbitmq;
 
 
+import comments.app.commons.utils.yaml.*;
 import lombok.*;
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +9,8 @@ import org.springframework.context.annotation.*;
 
 @Data
 @Configuration
-@PropertySource("classpath:rabbitmq-properties.yml")
+@PropertySource("classpath:rabbitmq.yml")
+@PropertySource(value = "classpath:rabbitmq-${spring.profiles.active}.yaml", factory = YamlPropertySourceFactory.class, ignoreResourceNotFound = true)
 public class ViewFanConfig {
 
     @Value("${rabbitmq.exchanges.view}")
