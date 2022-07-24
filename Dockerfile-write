@@ -3,11 +3,11 @@ FROM maven:3.8.6-openjdk-11-slim AS writebuild
 
 WORKDIR /comments-app
 
-COPY ./commons ./commons
-COPY ./pom.xml .
-COPY ./mongodb-app/pom.xml ./mongodb-app/pom.xml
-COPY ./view-api/pom.xml ./view-api/pom.xml
-COPY ./write-api ./write-api
+ADD ./commons ./commons
+ADD ./pom.xml .
+ADD ./mongodb-app/pom.xml ./mongodb-app/pom.xml
+ADD ./view-api/pom.xml ./view-api/pom.xml
+ADD ./write-api ./write-api
 
 RUN mvn clean install -N -Dmaven.test.skip=true
 RUN mvn clean install -pl commons -Dmaven.test.skip=true

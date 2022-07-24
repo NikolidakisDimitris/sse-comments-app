@@ -51,7 +51,7 @@ services:
   mongodb-app:
     build:
       context: .
-      dockerfile: Dockerfile-write
+      dockerfile: Dockerfile-mongodb-app
     container_name: mongodb-app
     ports:
       - "9090:9090"
