@@ -50,10 +50,12 @@ $(() => {
         };
 
         //insert comment
-        var url = 'http://LALALA:8088/write-api/v1/comments/';
+        var url = 'http://spring:8088/write-api/v1/comments/';
         $.ajax({
             method: 'POST',
             url: url,
+            crossDomain: true,
+            dataType: 'jsonp',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(comment),
             success: function (data) {

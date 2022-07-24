@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.config.*;
 
 @Configuration
 @PropertySource(value = "classpath:mongodb.yml", factory = YamlPropertySourceFactory.class)
-@PropertySource(value = "classpath:mongodb-${spring.profiles.active}.yaml", factory = YamlPropertySourceFactory.class, ignoreResourceNotFound = true)
+@PropertySource(value = "classpath:mongodb-${spring.profiles.active}.yml", factory = YamlPropertySourceFactory.class, ignoreResourceNotFound = true)
 public class MongodbConfig extends AbstractMongoClientConfiguration {
 
     //mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]

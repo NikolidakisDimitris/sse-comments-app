@@ -10,7 +10,7 @@ import org.springframework.context.annotation.*;
 @Data
 @Configuration
 @PropertySource(value = "classpath:rabbitmq.yml", factory = YamlPropertySourceFactory.class)
-@PropertySource(value = "classpath:rabbitmq-${spring.profiles.active}.yaml", factory = YamlPropertySourceFactory.class, ignoreResourceNotFound = true)
+@PropertySource(value = "classpath:rabbitmq-${spring.profiles.active}.yml", factory = YamlPropertySourceFactory.class, ignoreResourceNotFound = true)
 public class ReceiverTopicConfig {
 
     @Value("${rabbitmq.exchanges.receiver}")
