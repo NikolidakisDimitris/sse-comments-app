@@ -1,4 +1,4 @@
-package comments.app.receiver;
+package comments.app.write;
 
 import comments.app.commons.comment.*;
 import lombok.extern.slf4j.*;

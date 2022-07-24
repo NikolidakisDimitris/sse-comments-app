@@ -1,4 +1,4 @@
-package comments.app.receiver;
+package comments.app.write;
 
 import lombok.*;
 

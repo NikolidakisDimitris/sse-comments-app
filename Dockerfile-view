@@ -3,16 +3,14 @@ FROM maven:3.8.6-openjdk-11-slim AS build
 
 WORKDIR /comments-app
 
-ADD ./commons ./commons
-ADD ./pom.xml .
-ADD ./mongodb-app/pom.xml ./mongodb-app/pom.xml
-ADD ./write-api/pom.xml ./write-api/pom.xml
-ADD ./view-api ./view-api
+COPY ./commons ./commons
+COPY ./pom.xml .
+COPY ./mongodb-app/pom.xml ./mongodb-app/pom.xml
+COPY ./write-api/pom.xml ./write-api/pom.xml
+COPY ./view-api ./view-api
 #RUN mvn clean install -Dmaven.test.skip=true -DexcludeArtifactIds=mongodb-app,write-api
 RUN mvn clean install -N -Dmaven.test.skip=true
 RUN mvn clean install -pl commons -Dmaven.test.skip=true
-
-
 RUN mvn clean install -pl view-api -Dmaven.test.skip=true
 
 FROM openjdk:11-jdk-slim
