@@ -1,4 +1,4 @@
-FROM maven:3.8.6-openjdk-11-slim AS build
+FROM maven:3.8.6-openjdk-11-slim AS writebuild
 
 
 WORKDIR /comments-app
@@ -8,12 +8,13 @@ ADD ./pom.xml .
 ADD ./mongodb-app/pom.xml ./mongodb-app/pom.xml
 ADD ./view-api/pom.xml ./view-api/pom.xml
 ADD ./write-api ./write-api
+
 RUN mvn clean install -N -Dmaven.test.skip=true
 RUN mvn clean install -pl commons -Dmaven.test.skip=true
 RUN mvn clean install -pl write-api -Dmaven.test.skip=true
 
 FROM openjdk:11-jdk-slim
-COPY --from=build /root/.m2 /root/.m2
-COPY --from=build /comments-app/write-api/target/write-api-1.0-SNAPSHOT.jar /usr/local/lib/write-api-1.0-SNAPSHOT.jar
+COPY --from=writebuild /root/.m2 /root/.m2
+COPY --from=writebuild /comments-app/write-api/target/write-api-1.0-SNAPSHOT.jar /usr/local/lib/write-api-1.0-SNAPSHOT.jar
 EXPOSE 8088
 ENTRYPOINT ["java","-jar","/usr/local/lib/write-api-1.0-SNAPSHOT.jar","--spring.profiles.active=docker"]

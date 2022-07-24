@@ -1,3 +1,5 @@
+server:
+  9090
 data:
   mongodb:
     host: mongodb

@@ -1,7 +1,7 @@
 services:
   mongodb:
     image: mongo
-    container_name: mongo
+    container_name: mongodb
     ports:
       - "27017:27017"
     volumes:
@@ -11,7 +11,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: rootpass
     command: mongod
     networks:
-      - rabbitmq
+      - spring
 
 
 #  mongo-express:
@@ -31,54 +31,55 @@ services:
       - "5672:5672"
       - "15672:15672"
     networks:
+      - spring
+  view-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-view
+    container_name: view-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - mongo
       - rabbitmq
-#  view-app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile-view
-#    container_name: view-app
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#    networks:
-#      - rabbitmq
-#    depends_on:
-#      - mongo
-#      - rabbitmq
-#  write-app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile-write
-#    container_name: write-app
-#    ports:
-#      - "8088:8088"
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#    networks:
-#      - rabbitmq
-#    depends_on:
-#      - rabbitmq
-#  mongodb-app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile-write
-#    container_name: mongodb-app
-#    ports:
-#      - "9090:9090"
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=docker
-#    networks:
-#      - rabbitmq
-#    depends_on:
-#      - mongo
-#      - rabbitmq
+  write-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-write
+    container_name: write-app
+    ports:
+      - "8088:8088"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - rabbitmq
+      - mongodb
+  mongodb-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-write
+    container_name: mongodb-app
+    ports:
+      - "9090:9090"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+    depends_on:
+      - mongo
+      - rabbitmq
 
 volumes:
   data: {}
 
 networks:
-  rabbitmq:
-    name: rabbitmq_network
+  spring:
+    driver: bridge
 #  mongodb:
 #    name: mongodb_network

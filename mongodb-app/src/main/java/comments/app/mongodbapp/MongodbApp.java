@@ -6,10 +6,9 @@ import org.springframework.data.mongodb.repository.config.*;
 
 @SpringBootApplication(
         scanBasePackages = {
-                "comments.app.mongodbapp",
+                "comments.app.view",
                 "comments.app.commons"
-        }
-)
+        })
 @EnableMongoRepositories(basePackages = {"comments.app.commons.mongodb"})
 public class MongodbApp {
 

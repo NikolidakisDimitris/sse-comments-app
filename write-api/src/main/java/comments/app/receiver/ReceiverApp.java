@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.*;
 @SpringBootApplication(
         scanBasePackages = {
                 "comments.app.receiver",
-                "comments.app.commons.rabbitmq"
+                "comments.app.commons"
         })
 public class ReceiverApp {
 
