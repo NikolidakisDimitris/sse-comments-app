@@ -19,7 +19,8 @@ public class CommentController {
 
 
     //todo: add response object, error response object, ExceptionControllerHandler
-    @CrossOrigin(origins = "http://localhost:8080")
+//    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public void insertComment(@Valid @RequestBody CommentRequest commentRequest) {
 

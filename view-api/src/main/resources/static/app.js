@@ -55,14 +55,16 @@ $(() => {
         $.ajax({
             method: 'POST',
             url: url,
-            crossDomain: true,
-            dataType: "json",
-//            headers: {
-//                'Access-Control-Allow-Origin': '*',
-//                'Access-Control-Allow-Credentials': 'true',
-//                'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
-//                'Access-Control-Allow-Headers': 'Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control'
-//             },
+            // crossDomain: true,
+            // dataType: "jsonp",
+           headers: {
+
+            'X-Requested-With': 'XMLHttpRequest',
+               'Access-Control-Allow-Origin': '*',
+               'Access-Control-Allow-Credentials': 'true',
+               'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
+               'Access-Control-Allow-Headers': 'Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control'
+            },
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(comment),
             success: function (data) {
