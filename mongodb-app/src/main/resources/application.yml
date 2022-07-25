@@ -4,3 +4,12 @@ server:
 spring:
   application:
     name: mongodbapp
+data:
+  mongodb:
+    host: mongodb
+    port: 27017
+    username: rootuser
+    password: rootpass
+    database: comments
+    authentication-source: admin
+    auto-index-creation: Yes

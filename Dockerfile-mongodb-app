@@ -8,6 +8,7 @@ ADD ./pom.xml .
 ADD ./view-api/pom.xml ./view-api/pom.xml
 ADD ./write-api/pom.xml ./write-api/pom.xml
 ADD ./mongodb-app ./mongodb-app
+
 RUN mvn clean install -N
 RUN mvn clean install -pl commons
 RUN mvn clean install -pl mongodb-app

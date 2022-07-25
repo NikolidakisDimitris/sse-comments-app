@@ -47,7 +47,6 @@ $(() => {
 
         //insert comment
         var url = 'http://localhost:8088/write-api/v1/comments/';
-        console.log("paranoia 2");
         $.ajax({
             method: 'POST',
             url: url,

@@ -1,5 +1,5 @@
 server:
-  9090
+  port: 8080
 spring:
   application:
-    name: mongodbapp
+    name: view-api
