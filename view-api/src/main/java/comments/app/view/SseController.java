@@ -14,7 +14,7 @@ import java.util.*;
 @Controller
 public class SseController {
 
-    //we can add emitters in a map to find only a specific one
+    //we can add emitters in a map to find a specific session
     private final List<SseEmitter> sseEmitterList = Collections.synchronizedList(new ArrayList<>());
 
     @GetMapping("view-api/v1/comments/sse")
@@ -32,7 +32,7 @@ public class SseController {
     @RabbitListener(queues = "${rabbitmq.queues.view}")
     public void consumer(Comment message) {
 
-        if (message.getName() == null || message.getName().isEmpty()){
+        if (message.getName() == null || message.getName().isEmpty()) {
             message.setName("Guest");
         }
 
@@ -47,7 +47,6 @@ public class SseController {
                 log.error("exception in emitter: {}, adding to discard", sseEmitter.hashCode());
                 brokenEmitters.add(sseEmitter);
                 log.error("exception while sending message", e);
-
             }
         }
         this.sseEmitterList.removeAll(brokenEmitters);

@@ -14,8 +14,8 @@ public class Comment {
     private String date;
     private String name;
 
-    public Comment(String message){
+    public Comment(String message) {
+
         this.message = message;
     }
-
 }

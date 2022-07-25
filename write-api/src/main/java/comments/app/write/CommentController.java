@@ -11,16 +11,13 @@ import java.time.format.*;
 
 @Slf4j
 @RestController
-@RequestMapping("write-api/v1/comments")
 public class CommentController {
 
     @Autowired
     private CommentPublisher commentPublisher;
 
-
-    //todo: add response object, error response object, ExceptionControllerHandler
     @CrossOrigin(origins = "http://localhost:8080")
-    @PostMapping
+    @PostMapping("write-api/v1/comments")
     public void insertComment(@Valid @RequestBody CommentRequest commentRequest) {
 
         String name = commentRequest.getName().isBlank() ? "Guest" : commentRequest.getName();

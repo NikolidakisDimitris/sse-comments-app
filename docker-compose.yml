@@ -32,7 +32,7 @@ services:
     networks:
       - spring
     depends_on:
-      - mongo
+      - mongodb
       - rabbitmq
   write-app:
     build:
@@ -60,7 +60,7 @@ services:
     networks:
       - spring
     depends_on:
-      - mongo
+      - mongodb
       - rabbitmq
 
 volumes:

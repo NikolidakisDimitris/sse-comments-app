@@ -10,11 +10,7 @@ $(() => {
 
     let previousPageNumber = -1;
 
-    // // //comments data objects
-    // var commentsArray = [];
-
-    //testing
-    // var noInitialComments = false;
+    //boolean to check if there were any comments when the page loads
     var initialComments = false;
 
     // after 10 comments from the emitter we need to turn the page (avoid loading duplicate comments)
@@ -56,16 +52,10 @@ $(() => {
             method: 'POST',
             url: url,
             crossDomain: true,
-            dataType: "json",
-//            headers: {
-//                'Access-Control-Allow-Origin': '*',
-//                'Access-Control-Allow-Credentials': 'true',
-//                'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
-//                'Access-Control-Allow-Headers': 'Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control'
-//             },
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(comment),
             success: function (data) {
+                console.log("ajax success");
                 commentMessage.value = '';
             },
             error: function (data) {
@@ -91,15 +81,6 @@ $(() => {
                 if (data.length > 0 && !initialComments) {
                     initialComments = true;
                 }
-
-                // commentsArray = commentsArray.concat(data);
-                // console.log(commentsArray);
-                // if (commentsArray.length === 0) {
-                //     noInitialComments = true;
-                // }
-
-
-
 
                 //add comment to html
                 if (data !== undefined && data.length > 0 && initialComments) {
@@ -127,7 +108,7 @@ $(() => {
 
     //move the scroll bar after inserting new comments. 
     function setScrollBarPosition(element) {
-        element.scrollTop = ((element.scrollHeight - (element.clientHeight)) / 2) * 2;
+        element.scrollTop = ((element.scrollHeight - (element.clientHeight)) / 2);
     }
 
     //listen for scrolling in the comments div

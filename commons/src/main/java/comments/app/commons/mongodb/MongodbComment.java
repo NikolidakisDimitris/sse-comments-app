@@ -9,6 +9,7 @@ import comments.app.commons.comment.Comment;
 @Document
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class MongodbComment extends Comment {
 
     @Id

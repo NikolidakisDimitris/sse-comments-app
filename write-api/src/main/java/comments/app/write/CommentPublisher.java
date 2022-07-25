@@ -15,7 +15,6 @@ public class CommentPublisher {
     @Autowired
     private RabbitMQPublisher rabbitMQPublisher;
 
-    @Async //add task executor for this
     public void publishInsert(Comment comment) {
 
         this.rabbitMQPublisher.publish(comment, receiverTopicConfig.getReceiverExchange(), receiverTopicConfig.getReceiverRoutingKey());

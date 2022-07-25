@@ -14,7 +14,6 @@ import org.springframework.data.mongodb.config.*;
 @PropertySource(value = "classpath:mongodb-${spring.profiles.active}.yml", factory = YamlPropertySourceFactory.class, ignoreResourceNotFound = true)
 public class MongodbConfig extends AbstractMongoClientConfiguration {
 
-    //mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]
 
     @Value("${data.mongodb.port}")
     private String port;
@@ -58,7 +57,7 @@ public class MongodbConfig extends AbstractMongoClientConfiguration {
     @Override
     protected String getDatabaseName() {
 
-        System.out.println("DATABASE NAME:" + this.database );
+        System.out.println("DATABASE NAME:" + this.database);
 
         return this.database;
     }

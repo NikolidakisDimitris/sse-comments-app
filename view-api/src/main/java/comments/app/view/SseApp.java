@@ -16,5 +16,4 @@ public class SseApp {
 
         SpringApplication.run(SseApp.class, args);
     }
-
 }

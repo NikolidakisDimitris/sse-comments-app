@@ -17,7 +17,7 @@ public class YamlPropertySourceFactory implements PropertySourceFactory {
 
         Properties properties = factory.getObject();
 
-        if (encodedResource.getResource().getFilename() == null || properties == null){
+        if (encodedResource.getResource().getFilename() == null || properties == null) {
             //IOException here is quite loose, they could be other reasons
             throw new IOException();
         }

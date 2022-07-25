@@ -11,16 +11,15 @@ import org.springframework.amqp.core.AmqpTemplate;
 @AllArgsConstructor
 public class RabbitMQPublisher {
 
-
     private final AmqpTemplate ampqTemplate;
 
-    public void publish(Comment payload, String exchange, String routingKey){
+    public void publish(Comment payload, String exchange, String routingKey) {
 
         log.info("Publishing to {} using routingKey {}, payload: {}", exchange, routingKey, payload);
         ampqTemplate.convertAndSend(exchange, routingKey, payload);
     }
 
-    public void publishFan(Comment payload, String exchange){
+    public void publishFan(Comment payload, String exchange) {
 
         log.info("Publishing to {} , payload: {}", exchange, payload);
         ampqTemplate.convertAndSend(exchange, "", payload);

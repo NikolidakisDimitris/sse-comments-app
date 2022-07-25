@@ -9,9 +9,9 @@ ADD ./mongodb-app/pom.xml ./mongodb-app/pom.xml
 ADD ./write-api/pom.xml ./write-api/pom.xml
 ADD ./view-api ./view-api
 #RUN mvn clean install -Dmaven.test.skip=true -DexcludeArtifactIds=mongodb-app,write-api
-RUN mvn clean install -N -Dmaven.test.skip=true
-RUN mvn clean install -pl commons -Dmaven.test.skip=true
-RUN mvn clean install -pl view-api -Dmaven.test.skip=true
+RUN mvn clean install -N
+RUN mvn clean install -pl commons
+RUN mvn clean install -pl view-api
 
 FROM openjdk:11-jdk-slim
 COPY --from=build /root/.m2 /root/.m2

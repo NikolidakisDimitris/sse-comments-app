@@ -8,14 +8,12 @@ ADD ./pom.xml .
 ADD ./view-api/pom.xml ./view-api/pom.xml
 ADD ./write-api/pom.xml ./write-api/pom.xml
 ADD ./mongodb-app ./mongodb-app
-#RUN mvn clean install -Dmaven.test.skip=true -DexcludeArtifactIds=mongodb-app,write-api
-RUN mvn clean install -N -Dmaven.test.skip=true
-RUN mvn clean install -pl commons -Dmaven.test.skip=true
-RUN mvn clean install -pl mongodb-app -Dmaven.test.skip=true
+RUN mvn clean install -N
+RUN mvn clean install -pl commons
+RUN mvn clean install -pl mongodb-app
 
 FROM openjdk:11-jdk-slim
 COPY --from=build /root/.m2 /root/.m2
 COPY --from=build /comments-app/mongodb-app/target/mongodb-app-1.0-SNAPSHOT.jar /usr/local/lib/mongodb-app-1.0-SNAPSHOT.jar
 EXPOSE 9090
-# todo remove --spring.profiles.active=docker and make it an input
 ENTRYPOINT ["java","-jar","/usr/local/lib/mongodb-app-1.0-SNAPSHOT.jar","--spring.profiles.active=docker"]

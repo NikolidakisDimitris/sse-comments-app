@@ -26,6 +26,7 @@ public class RabbitMQConfig {
 
     @Bean
     public SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory() {
+
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(jacksonJsonConverter());
@@ -35,6 +36,7 @@ public class RabbitMQConfig {
 
     @Bean
     public MessageConverter jacksonJsonConverter() {
+
         ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
         return new Jackson2JsonMessageConverter(mapper);
     }

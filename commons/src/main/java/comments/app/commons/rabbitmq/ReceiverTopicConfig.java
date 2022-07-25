@@ -25,24 +25,23 @@ public class ReceiverTopicConfig {
 
     @Bean
     public TopicExchange receiverTopicExchange() {
+
         return new TopicExchange(this.receiverExchange);
     }
 
 
     @Bean
-    public Queue receiverQueue(){
+    public Queue receiverQueue() {
+
         return new Queue(this.receiverQueue);
     }
 
     @Bean
-    public Binding receiverBinding(){
+    public Binding receiverBinding() {
+
         return BindingBuilder
                 .bind(receiverQueue())
                 .to(receiverTopicExchange())
                 .with(this.receiverRoutingKey);
     }
-
-
-
-
 }

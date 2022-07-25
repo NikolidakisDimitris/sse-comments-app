@@ -36,6 +36,4 @@ public class CommentsConsumer {
         this.commentRepository.insert(mongodbComment);
         this.rabbitMQPublisher.publishFan(comment, mongodbExchange);
     }
-
-
 }
