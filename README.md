@@ -24,7 +24,7 @@ The view api is responsible for reading from the database and listening for inse
 Navigate into the project directory and execute the docker-compose.yml (run in the background)
     
     docker compose up -d
-The process will take several minutes (approx 2-5)  <br />
+The process will take several minutes (approx 2-5 minutes)  <br />
 When the process is complete you should be able to visit http://localhost:8080 and test the app
 
 once you are done you can remove the images and volumes by running
@@ -41,7 +41,7 @@ to bring down the containers without removing the images
 ### Java - Maven
     
     Prerequisites:
-    Java 11 (https://jdk.java.net/java-se-ri/11) <br />
+    Java 11 (https://jdk.java.net/java-se-ri/11)
     Maven (https://maven.apache.org/download.cgi)
 
 You can run each service as a jar file, 
